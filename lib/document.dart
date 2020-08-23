@@ -18,11 +18,13 @@
 
 import 'dart:typed_data';
 
+import 'package:diagnostic_app/constants.dart';
+import 'package:diagnostic_app/main.dart';
 import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
-import 'package:pdf_printer/data.dart';
+import 'package:diagnostic_app/data.dart';
 
 Future<Uint8List> generateDocument(PdfPageFormat format) async {
   final pw.Document doc = pw.Document();
@@ -33,21 +35,202 @@ Future<Uint8List> generateDocument(PdfPageFormat format) async {
       pageFormat:
           PdfPageFormat.letter.copyWith(marginBottom: 1.5 * PdfPageFormat.cm),
       crossAxisAlignment: pw.CrossAxisAlignment.start,
-      footer: (pw.Context context) {
-        return pw.Container(
-            alignment: pw.Alignment.centerRight,
-            margin: const pw.EdgeInsets.only(top: 1.0 * PdfPageFormat.cm),
-            child: pw.Text(
-                'Page ${context.pageNumber} of ${context.pagesCount}',
-                style:
-                    TextStyle(font: ttf, fontSize: 18, color: PdfColors.grey)));
-      },
       build: (pw.Context context) => <pw.Widget>[
-            pw.Paragraph(text: 'Nom : \t \t ' + Data.lastName),
-            pw.Paragraph(text: 'Prénom : \t \t ' + Data.firstName),
-            pw.Paragraph(text: 'Adresse : \t \t ' + Data.address),
-            pw.Paragraph(text: 'Tél.Portable : \t \t ' + Data.phoneNumber),
-            pw.Padding(padding: const pw.EdgeInsets.all(50)),
+            pw.Text('suivi par : \t \t ' + Data.lastName),
+            pw.Row(children: <Widget>[
+              pw.Expanded(
+                  flex: 1,
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: pw.Text(
+                      'Cachet du réparateure',
+                    ),
+                  )),
+              pw.Expanded(
+                flex: 1,
+                child: pw.Column(
+                    crossAxisAlignment: pw.CrossAxisAlignment.start,
+                    children: <Widget>[
+                      pw.Paragraph(
+                          text: 'Nom : \t \t ' + MyAppState.client.lastName),
+                      pw.Paragraph(
+                          text:
+                              'Prénom : \t \t ' + MyAppState.client.firstName),
+                      pw.Paragraph(
+                          text:
+                              'Adresse : \t \t ' + MyAppState.client.lastName),
+                      pw.Paragraph(
+                          text: 'Tél.Portable : \t \t ' +
+                              MyAppState.client.phoneNumber),
+                      pw.Paragraph(
+                          text: 'Mail : \t \t ' + MyAppState.client.email),
+                    ]),
+              )
+            ]),
+            pw.Text('IDENTIFICATION DU VEHICULE : \t \t ' + Data.lastName,
+                style: TextStyle(
+                  font: ttf,
+                  fontSize: 16,
+                )),
+            pw.Padding(padding: const pw.EdgeInsets.all(8)),
+            pw.Column(children: <Widget>[
+              pw.Row(children: <Widget>[
+                pw.Expanded(
+                  flex: 1,
+                  child: pw.Text('MARQUE:' + Data.lastName,
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+                pw.Expanded(
+                  flex: 1,
+                  child: pw.Text(
+                    MyAppState.client.car.maque,
+                  ),
+                ),
+                pw.Expanded(
+                  flex: 1,
+                  child: pw.Text('MODELE:' + Data.lastName,
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+                pw.Expanded(
+                  flex: 1,
+                  child: pw.Text(
+                    MyAppState.client.car.modele,
+                  ),
+                ),
+                pw.Expanded(
+                  flex: 1,
+                  child: pw.Text('VERSION:' + Data.lastName,
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+                pw.Expanded(
+                  flex: 1,
+                  child: pw.Text(
+                    MyAppState.client.car.version,
+                  ),
+                )
+              ]),
+              pw.Divider(color: PdfColors.black, thickness: 1.0),
+              pw.Row(children: <Widget>[
+                pw.Expanded(
+                  flex: 1,
+                  child: pw.Text('N° DE SERIE:' + Data.lastName,
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+                pw.Expanded(
+                  flex: 1,
+                  child: pw.Text(
+                    MyAppState.client.car.serie,
+                  ),
+                ),
+                pw.Expanded(
+                  flex: 1,
+                  child: pw.Text('IMMATRICULATION:' + Data.lastName,
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+                pw.Expanded(
+                  flex: 1,
+                  child: pw.Text(
+                    MyAppState.client.car.immatriculation,
+                  ),
+                ),
+              ]),
+              pw.Divider(color: PdfColors.black, thickness: 1.0),
+              pw.Row(children: <Widget>[
+                pw.Expanded(
+                  flex: 1,
+                  child: pw.Text('DATE DE 1er MISE EN CIRCULATION:',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+                pw.Expanded(
+                  flex: 1,
+                  child: pw.Text(
+                    MyAppState.client.car.dateMiseEnCirculation,
+                  ),
+                )
+              ]),
+              pw.Divider(color: PdfColors.black, thickness: 1.0),
+              pw.Row(children: <Widget>[
+                pw.Expanded(
+                  flex: 2,
+                  child: pw.Text('ANTIVOL DE ROUES:',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+                pw.Expanded(
+                  flex: 1,
+                  child: pw.Text(
+                    MyAppState.client.car.antivol,
+                  ),
+                ),
+                pw.Expanded(
+                  flex: 2,
+                  child: pw.Text('CODE MOTEUR:',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+                pw.Expanded(
+                  flex: 1,
+                  child: pw.Text(
+                    MyAppState.client.car.codeMoteur,
+                  ),
+                ),
+              ]),
+              pw.Divider(color: PdfColors.black, thickness: 1.0),
+            ]),
+            pw.Padding(padding: const pw.EdgeInsets.all(8)),
+            pw.Table.fromTextArray(
+                context: context,
+                data: <List<String>>[
+                  <String>[
+                    vMoteur,
+                    MyAppState.client.prestation.vMoteur ? 'X' : '    ',
+                    fHabitacle,
+                    MyAppState.client.prestation.fHabitacle ? 'X' : '    ',
+                    reporogrammation,
+                    MyAppState.client.prestation.reporogrammation ? 'X' : '   ',
+                  ],
+                  <String>[
+                    vboite,
+                    MyAppState.client.prestation.vPoint ? 'X' : '   ',
+                    lFrien,
+                    MyAppState.client.prestation.lFrien ? 'X' : '   ',
+                    diagnostic,
+                    MyAppState.client.prestation.diagnostic ? 'X' : '   ',
+                  ],
+                  <String>[
+                    vPoint,
+                    MyAppState.client.prestation.vPoint ? 'X' : '   ',
+                    lRefroidisement,
+                    MyAppState.client.prestation.lRefroidisement ? 'X' : '   ',
+                    balais,
+                    MyAppState.client.prestation.balais ? 'X' : '   ',
+                  ],
+                  <String>[
+                    fAir,
+                    MyAppState.client.prestation.fAir ? 'X' : '   ',
+                    eRoues,
+                    MyAppState.client.prestation.eRoues ? 'X' : '   ',
+                    eclairage,
+                    MyAppState.client.prestation.eclairage ? 'X' : '   ',
+                  ],
+                  <String>[
+                    fHuile,
+                    MyAppState.client.prestation.fHuile ? 'X' : '   ',
+                    pneus,
+                    MyAppState.client.prestation.pneus ? 'X' : '   ',
+                    obd,
+                    MyAppState.client.prestation.obd ? 'X' : '   ',
+                  ],
+                  <String>[
+                    fCarburant,
+                    MyAppState.client.prestation.fCarburant ? 'X' : '   ',
+                    climatisation,
+                    MyAppState.client.prestation.climatisation ? 'X' : '   ',
+                    bougies,
+                    MyAppState.client.prestation.bougies ? 'X' : '   ',
+                  ],
+                ],
+                cellAlignment: Alignment.topLeft,
+                headerAlignment: pw.Alignment.topLeft),
+            pw.Padding(padding: const pw.EdgeInsets.all(8)),
             pw.Table.fromTextArray(
                 context: context,
                 data: <List<String>>[
@@ -56,14 +239,14 @@ Future<Uint8List> generateDocument(PdfPageFormat format) async {
                 ],
                 cellPadding: EdgeInsets.all(16),
                 cellAlignment: Alignment.center),
-            pw.Padding(padding: const pw.EdgeInsets.all(30)),
+            pw.Padding(padding: const pw.EdgeInsets.all(16)),
             pw.Table.fromTextArray(
                 context: context,
                 data: const <List<String>>[
                   <String>['BON POUR ACCORD SIGNATURE', 'OBSERVATIONS'],
                   <String>['', ''],
                 ],
-                cellPadding: EdgeInsets.all(50),
+                cellPadding: EdgeInsets.all(16),
                 cellAlignment: Alignment.center),
           ]));
 

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "457462467170",
+    "firebase_url": "https://cardiagnostic-a4b04.firebaseio.com",
+    "project_id": "cardiagnostic-a4b04",
+    "storage_bucket": "cardiagnostic-a4b04.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457462467170:android:bd83ac53c097b57cda1f3b",
+        "android_client_info": {
+          "package_name": "com.car.diagnostic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "457462467170-h6ugv3mp5f7rvcijp0ounrso361piij0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0C7H9G1I1xHMSKKL9sCp3Ok3XMCKs6lg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "457462467170-h6ugv3mp5f7rvcijp0ounrso361piij0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

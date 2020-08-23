@@ -1,88 +1,98 @@
+import 'dart:async';
 
-import 'dart:io';
-import 'dart:typed_data';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
-import 'package:open_file/open_file.dart';
-import 'package:printing/printing.dart';
-
-import 'document.dart';
+import 'package:flutter/services.dart';
+import 'package:diagnostic_app/model/User.dart';
+import 'package:diagnostic_app/ui/home/HomeScreen.dart';
+import 'package:diagnostic_app/ui/services/Authenticate.dart';
+import 'package:diagnostic_app/ui/utils/helper.dart';
+import 'package:diagnostic_app/model/Car.dart';
+import 'package:diagnostic_app/model/Prestation.dart';
+import 'constants.dart' as Constants;
+import 'ui/auth/AuthScreen.dart';
 
 void main() {
   debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
-  runApp(MaterialApp(home: MyApp()));
+  runApp(new MyApp());
 }
 
 class MyApp extends StatefulWidget {
   @override
-  MyAppState createState() {
-    return MyAppState();
+  MyAppState createState() => MyAppState();
+}
+
+class MyAppState extends State<MyApp> with WidgetsBindingObserver {
+  static User currentUser;
+  static User client;
+  static Car car;
+  static Prestation prestation;
+
+  @override
+  Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Color(Constants.COLOR_PRIMARY_DARK)));
+    return MaterialApp(
+        theme: ThemeData(accentColor: Color(Constants.COLOR_PRIMARY)),
+        debugShowCheckedModeBanner: false,
+        color: Color(Constants.COLOR_PRIMARY),
+        home: OnBoarding());
+  }
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {}
+}
+
+class OnBoarding extends StatefulWidget {
+  @override
+  State createState() {
+    return OnBoardingState();
   }
 }
 
-class MyAppState extends State<MyApp> {
- 
-  void _showPrintedToast(BuildContext context) {
-    final ScaffoldState scaffold = Scaffold.of(context);
-
-    scaffold.showSnackBar(
-      const SnackBar(
-        content: Text('Document printed successfully'),
-      ),
-    );
+class OnBoardingState extends State<OnBoarding> {
+  Future hasFinishedOnBoarding() async {
+    FirebaseUser firebaseUser = await FirebaseAuth.instance.currentUser();
+    if (firebaseUser != null) {
+      User user = await FireStoreUtils().getCurrentUser(firebaseUser.uid);
+      if (user != null) {
+        MyAppState.currentUser = user;
+        pushReplacement(context, new HomeScreen(user: user));
+      } else {
+        pushReplacement(context, new AuthScreen());
+      }
+    } else {
+      pushReplacement(context, new AuthScreen());
+    }
   }
 
-  void _showSharedToast(BuildContext context) {
-    final ScaffoldState scaffold = Scaffold.of(context);
-
-    scaffold.showSnackBar(
-      const SnackBar(
-        content: Text('Document shared successfully'),
-      ),
-    );
-  }
-
-  Future<void> _saveAsFile(
-    BuildContext context,
-    LayoutCallback build,
-    PdfPageFormat pageFormat,
-  ) async {
-    final Uint8List bytes = await build(pageFormat);
-
-    final Directory appDocDir = await getApplicationDocumentsDirectory();
-    final String appDocPath = appDocDir.path;
-    final File file = File(appDocPath + '/' + 'document.pdf');
-    print('Save as file ${file.path} ...');
-    await file.writeAsBytes(bytes);
-    OpenFile.open(file.path);
+  @override
+  void initState() {
+    super.initState();
+    hasFinishedOnBoarding();
   }
 
   @override
   Widget build(BuildContext context) {
-    pw.RichText.debug = true;
-
-    final actions = <PdfPreviewAction>[
-      if (!kIsWeb)
-        PdfPreviewAction(
-          icon: const Icon(Icons.save),
-          onPressed: _saveAsFile,
-        )
-    ];
-
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Pdf Printing Example'),
-      ),
-      body: PdfPreview(
-        maxPageWidth: 700,
-        build: generateDocument,
-        actions: actions,
-        onPrinted: _showPrintedToast,
-        onShared: _showSharedToast,
+      backgroundColor: Color(Constants.COLOR_PRIMARY),
+      body: Center(
+        child: CircularProgressIndicator(
+          backgroundColor: Colors.white,
+        ),
       ),
     );
   }

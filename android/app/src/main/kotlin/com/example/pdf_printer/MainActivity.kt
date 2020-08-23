@@ -1,4 +1,4 @@
-package com.example.pdf_printer
+package com.car.diagnostic
 
 import io.flutter.embedding.android.FlutterActivity
 

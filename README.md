@@ -1,4 +1,4 @@
-# pdf_printer
+# diagnostic_app
 
 A new Flutter project.
 
