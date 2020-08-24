@@ -17,14 +17,14 @@ class AuthScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(top: 200.0, bottom: 20.0),
                 child: Icon(
-                  Icons.phone_iphone,
+                  Icons.directions_car,
                   size: 150,
                   color: Color(Constants.COLOR_PRIMARY),
                 ),
               ),
             ),
             Text(
-              'Say Hello To Your New App!',
+              'AZ PERFORMANCES',
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: Color(Constants.COLOR_PRIMARY),
@@ -34,8 +34,8 @@ class AuthScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                'You\'ve just saved a week of development and headaches.',
-                style: TextStyle(fontSize: 18),
+                'Créateur de sensations'.toUpperCase(),
+                style: TextStyle(fontSize: 17),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -46,7 +46,7 @@ class AuthScreen extends StatelessWidget {
                 child: RaisedButton(
                   color: Color(Constants.COLOR_PRIMARY),
                   child: Text(
-                    'Log In',
+                    'S\'identifier',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   textColor: Colors.white,
@@ -61,26 +61,6 @@ class AuthScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 40.0, left: 40.0, top: 20),
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(minWidth: double.infinity),
-                child: FlatButton(
-                  textColor: Colors.black54,
-                  child: Text(
-                    'Sign Up',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  onPressed: () {
-                    push(context, new SignUpScreen());
-                  },
-                  padding: EdgeInsets.only(top: 12, bottom: 12),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25.0),
-                      side: BorderSide(color: Colors.black54)),
-                ),
-              ),
-            )
           ],
         ),
       ),

@@ -25,9 +25,8 @@ class _SignUpState extends State<SignUpScreen> {
   TextEditingController _passwordController = new TextEditingController();
   GlobalKey<FormState> _key = new GlobalKey();
   bool _validate = false;
-  String firstName, lastName, email, mobile, password, confirmPassword;
+  String firstName, lastName, email, mobile, password, confirmPassword, address;
   final _picker = ImagePicker();
-
 
   @override
   Widget build(BuildContext context) {
@@ -194,6 +193,33 @@ class _SignUpState extends State<SignUpScreen> {
         ConstrainedBox(
             constraints: BoxConstraints(minWidth: double.infinity),
             child: Padding(
+              padding: const EdgeInsets.only(top: 16.0, right: 8.0, left: 8.0),
+              child: TextFormField(
+                  textInputAction: TextInputAction.next,
+                  onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
+                  validator: validateAddress,
+                  onSaved: (String val) {
+                    address = val;
+                  },
+                  style: TextStyle(height: 0.8, fontSize: 18.0),
+                  cursorColor: Color(Constants.COLOR_PRIMARY),
+                  decoration: InputDecoration(
+                      contentPadding:
+                          new EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                      fillColor: Colors.white,
+                      hintText: 'Adresse',
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                          borderSide: BorderSide(
+                              color: Color(Constants.COLOR_PRIMARY),
+                              width: 2.0)),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25.0),
+                      ))),
+            )),
+        ConstrainedBox(
+            constraints: BoxConstraints(minWidth: double.infinity),
+            child: Padding(
                 padding:
                     const EdgeInsets.only(top: 16.0, right: 8.0, left: 8.0),
                 child: TextFormField(
@@ -331,7 +357,7 @@ class _SignUpState extends State<SignUpScreen> {
   _sendToServer() async {
     if (_key.currentState.validate()) {
       _key.currentState.save();
-      showProgress(context, 'Creating new account...', false);
+      showProgress(context, 'Loading...', false);
       var profilePicUrl = '';
       try {
         AuthResult result = await FirebaseAuth.instance
@@ -347,6 +373,7 @@ class _SignUpState extends State<SignUpScreen> {
             phoneNumber: mobile,
             userID: result.user.uid,
             lastName: lastName,
+            address: address,
             profilePictureURL: profilePicUrl);
         await FireStoreUtils.firestore
             .collection(Constants.USERS)

@@ -58,7 +58,7 @@ Future<Uint8List> generateDocument(PdfPageFormat format) async {
                               'Prénom : \t \t ' + MyAppState.client.firstName),
                       pw.Paragraph(
                           text:
-                              'Adresse : \t \t ' + MyAppState.client.lastName),
+                              'Adresse : \t \t ' + MyAppState.client.address),
                       pw.Paragraph(
                           text: 'Tél.Portable : \t \t ' +
                               MyAppState.client.phoneNumber),

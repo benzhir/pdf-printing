@@ -26,8 +26,6 @@ class MyApp extends StatefulWidget {
 class MyAppState extends State<MyApp> with WidgetsBindingObserver {
   static User currentUser;
   static User client;
-  static Car car;
-  static Prestation prestation;
 
   @override
   Widget build(BuildContext context) {

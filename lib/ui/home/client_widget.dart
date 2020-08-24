@@ -33,6 +33,7 @@ class ClientWidget extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
                           client.fullName().toUpperCase(),
@@ -74,7 +75,7 @@ class ClientWidget extends StatelessWidget {
                     TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                 children: <TextSpan>[
                   TextSpan(
-                      text: ' ${client.appIdentifier}',
+                      text: ' ${client.address}',
                       style: TextStyle(color: Colors.black54)),
                 ],
               ),
@@ -117,7 +118,7 @@ class ClientWidget extends StatelessWidget {
                   push(context, PdfPage());
                 },
                 child: new Text(
-                  'Document',
+                  'Document PDF',
                   style: TextStyle(
                     color: Color(Constants.COLOR_PRIMARY),
                   ),

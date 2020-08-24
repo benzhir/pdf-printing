@@ -123,7 +123,7 @@ class _LoginScreen extends State<LoginScreen> {
                 child: RaisedButton(
                   color: Color(Constants.COLOR_PRIMARY),
                   child: Text(
-                    'Log In',
+                    'S\'identifier',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   textColor: Colors.white,
@@ -139,15 +139,6 @@ class _LoginScreen extends State<LoginScreen> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(32.0),
-              child: Center(
-                child: Text(
-                  'OR',
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),
-            ),
           ],
         ),
       ),
@@ -157,7 +148,7 @@ class _LoginScreen extends State<LoginScreen> {
   onClick(String email, String password) async {
     if (_key.currentState.validate()) {
       _key.currentState.save();
-      showProgress(context, 'Logging in, please wait...', false);
+      showProgress(context, 'Connexion, veuillez patienter ...', false);
       User user =
           await loginWithUserNameAndPassword(email.trim(), password.trim());
       if (user != null)

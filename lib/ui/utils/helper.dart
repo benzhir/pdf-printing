@@ -9,9 +9,42 @@ String validateName(String value) {
   String patttern = r'(^[a-zA-Z ]*$)';
   RegExp regExp = new RegExp(patttern);
   if (value.length == 0) {
-    return "Name is required";
+    return "Le nom est requis";
   } else if (!regExp.hasMatch(value)) {
-    return "Name must be a-z and A-Z";
+    return "Le nom doit être a-z et A-Z";
+  }
+  return null;
+}
+
+String validateFirstName(String value) {
+  String patttern = r'(^[a-zA-Z ]*$)';
+  RegExp regExp = new RegExp(patttern);
+  if (value.length == 0) {
+    return "Le nom est requis";
+  } else if (!regExp.hasMatch(value)) {
+    return "Le prénom doit être a-z et A-Z";
+  }
+  return null;
+}
+
+String validateAddress(String value) {
+  String patttern = r'(^[a-zA-Z ]*$)';
+  RegExp regExp = new RegExp(patttern);
+  if (value.length == 0) {
+    return "L\'adresse est requis";
+  } else if (!regExp.hasMatch(value)) {
+    return "Le nom doit être a-z et A-Z";
+  }
+  return null;
+}
+
+String validateMarque(String value) {
+  String patttern = r'(^[a-zA-Z ]*$)';
+  RegExp regExp = new RegExp(patttern);
+  if (value.length == 0) {
+    return "La marque est requis";
+  } else if (!regExp.hasMatch(value)) {
+    return "La marque doit être a-z et A-Z";
   }
   return null;
 }
@@ -20,16 +53,18 @@ String validateMobile(String value) {
   String patttern = r'(^[0-9]*$)';
   RegExp regExp = new RegExp(patttern);
   if (value.length == 0) {
-    return "Mobile phone number is required";
+    return "Le numéro de téléphone portable est requis";
+  } else if (value.length > 10) {
+    return "Le numéro de téléphone portable ne doit contenir que 10 chiffres";
   } else if (!regExp.hasMatch(value)) {
-    return "Mobile phone number must contain only digits";
+    return "Le numéro de téléphone portable ne doit contenir que chiffres";
   }
   return null;
 }
 
 String validatePassword(String value) {
   if (value.length < 6)
-    return 'Password must be more than 5 charaters';
+    return 'Le mot de passe doit contenir plus de 5 caractères';
   else
     return null;
 }
@@ -39,7 +74,7 @@ String validateEmail(String value) {
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
   RegExp regex = new RegExp(pattern);
   if (!regex.hasMatch(value))
-    return 'Enter Valid Email';
+    return 'Entrez une adresse e-mail valide';
   else
     return null;
 }
@@ -47,9 +82,9 @@ String validateEmail(String value) {
 String validateConfirmPassword(String password, String confirmPassword) {
   print("$password $confirmPassword");
   if (password != confirmPassword) {
-    return 'Password doesn\'t match';
+    return 'Le mot de passe ne correspond pas';
   } else if (confirmPassword.length == 0) {
-    return 'Confirm password is required';
+    return 'Confirmer le mot de passe est requis';
   } else {
     return null;
   }

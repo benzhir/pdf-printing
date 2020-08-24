@@ -13,7 +13,7 @@ class User {
   Timestamp lastOnlineTimestamp = Timestamp.now();
   String userID;
   String profilePictureURL = '';
-  String appIdentifier = 'Flutter Login Screen ${Platform.operatingSystem}';
+  String address;
   Car car;
   Prestation prestation;
 
@@ -26,6 +26,7 @@ class User {
       this.lastOnlineTimestamp,
       this.userID,
       this.profilePictureURL,
+      this.address,
       this.car,
       this.prestation});
 
@@ -50,6 +51,7 @@ class User {
       phoneNumber: parsedJson['phoneNumber'] ?? "",
       userID: parsedJson['id'] ?? parsedJson['userID'] ?? '',
       profilePictureURL: parsedJson['profilePictureURL'] ?? "",
+      address: parsedJson['address'] ?? "",
       car: clientCar != null ? Car.fromMap(clientCar) : null,
       prestation: clientPrestation != null
           ? Prestation.fromMap(clientPrestation)
@@ -67,7 +69,7 @@ class User {
       'isAdmin': this.isAdmin,
       'lastOnlineTimestamp': this.lastOnlineTimestamp,
       "profilePictureURL": this.profilePictureURL,
-      'appIdentifier': this.appIdentifier,
+      'address': this.address,
       'car': car?.toMap(),
       'prestation': prestation?.toMap(),
     };

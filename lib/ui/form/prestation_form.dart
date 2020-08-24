@@ -69,7 +69,7 @@ class _PrestationFormState extends State<PrestationForm> {
   }
 
   _sendToServer() async {
-    showProgress(context, 'Creating new account...', false);
+    showProgress(context, 'Loading...', false);
     try {
       Prestation prestation = new Prestation(
         vMoteur: _checkedList.contains(Constants.vMoteur),
@@ -92,13 +92,13 @@ class _PrestationFormState extends State<PrestationForm> {
         bougies: _checkedList.contains(Constants.bougies),
       );
       MyAppState.client.prestation = prestation;
-      
+
       await FireStoreUtils.firestore
           .collection(Constants.USERS)
           .document(Uuid().v1())
           .setData(MyAppState.client.toJson());
       hideProgress();
-      pushAndRemoveUntil(context, PdfPage(), false);
+      pushReplacement(context, PdfPage());
     } catch (error) {
       hideProgress();
       (error as PlatformException).code != 'ERROR_EMAIL_ALREADY_IN_USE'

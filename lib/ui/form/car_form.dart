@@ -56,7 +56,7 @@ class _CarFormState extends State<CarForm> {
         new Align(
             alignment: Alignment.topLeft,
             child: Text(
-              'Véhicule',
+              'IDENTIFICATION DU VEHICULE',
               style: TextStyle(
                   color: Color(Constants.COLOR_PRIMARY),
                   fontWeight: FontWeight.bold,
@@ -68,7 +68,7 @@ class _CarFormState extends State<CarForm> {
                 padding:
                     const EdgeInsets.only(top: 16.0, right: 8.0, left: 8.0),
                 child: TextFormField(
-                    validator: validateName,
+                    validator: validateMarque,
                     onSaved: (String val) {
                       marque = val;
                     },

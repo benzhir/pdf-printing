@@ -15,7 +15,7 @@ class ClientForm extends StatefulWidget {
 class _ClientFormState extends State<ClientForm> {
   GlobalKey<FormState> _key = new GlobalKey();
   bool _validate = false;
-  String firstName, lastName, email, mobile, password, confirmPassword;
+  String firstName, lastName, email, mobile, address;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +51,7 @@ class _ClientFormState extends State<ClientForm> {
         new Align(
             alignment: Alignment.topLeft,
             child: Text(
-              'Client',
+              'CLIENT',
               style: TextStyle(
                   color: Color(Constants.COLOR_PRIMARY),
                   fontWeight: FontWeight.bold,
@@ -63,7 +63,6 @@ class _ClientFormState extends State<ClientForm> {
                 padding:
                     const EdgeInsets.only(top: 16.0, right: 8.0, left: 8.0),
                 child: TextFormField(
-                    initialValue: FINISHED_ON_BOARDING,
                     validator: validateName,
                     onSaved: (String val) {
                       lastName = val;
@@ -89,8 +88,7 @@ class _ClientFormState extends State<ClientForm> {
                 padding:
                     const EdgeInsets.only(top: 16.0, right: 8.0, left: 8.0),
                 child: TextFormField(
-                    initialValue: FINISHED_ON_BOARDING,
-                    validator: validateName,
+                    validator: validateFirstName,
                     onSaved: (String val) {
                       firstName = val;
                     },
@@ -114,12 +112,11 @@ class _ClientFormState extends State<ClientForm> {
             child: Padding(
               padding: const EdgeInsets.only(top: 16.0, right: 8.0, left: 8.0),
               child: TextFormField(
-                  initialValue: FINISHED_ON_BOARDING,
                   textInputAction: TextInputAction.next,
                   onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
-                  validator: validateName,
+                  validator: validateAddress,
                   onSaved: (String val) {
-                    password = val;
+                    address = val;
                   },
                   style: TextStyle(height: 0.8, fontSize: 18.0),
                   cursorColor: Color(Constants.COLOR_PRIMARY),
@@ -143,7 +140,6 @@ class _ClientFormState extends State<ClientForm> {
                 padding:
                     const EdgeInsets.only(top: 16.0, right: 8.0, left: 8.0),
                 child: TextFormField(
-                    initialValue: '0600000000',
                     keyboardType: TextInputType.phone,
                     textInputAction: TextInputAction.next,
                     onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
@@ -170,7 +166,6 @@ class _ClientFormState extends State<ClientForm> {
                 padding:
                     const EdgeInsets.only(top: 16.0, right: 8.0, left: 8.0),
                 child: TextFormField(
-                    initialValue: 'client@gmail.com',
                     keyboardType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.next,
                     onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
@@ -208,6 +203,7 @@ class _ClientFormState extends State<ClientForm> {
           phoneNumber: mobile,
           lastName: lastName,
           isAdmin: false,
+          address: address,
           profilePictureURL: profilePicUrl);
       MyAppState.client = user;
       push(context, new CarForm());

@@ -42,36 +42,6 @@ class _HomeState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Text(
-                'Drawer Header',
-                style: TextStyle(color: Colors.white),
-              ),
-              decoration: BoxDecoration(
-                color: Color(COLOR_PRIMARY),
-              ),
-            ),
-            ListTile(
-              title: Text(
-                'Logout',
-                style: TextStyle(color: Colors.black),
-              ),
-              leading: Transform.rotate(
-                  angle: pi / 1,
-                  child: Icon(Icons.exit_to_app, color: Colors.black)),
-              onTap: () async {
-                await FirebaseAuth.instance.signOut();
-                MyAppState.currentUser = null;
-                pushAndRemoveUntil(context, AuthScreen(), false);
-              },
-            ),
-          ],
-        ),
-      ),
       appBar: AppBar(
         leading: displayCircleImage(user.profilePictureURL, 100, false),
         title: Text(
@@ -82,7 +52,13 @@ class _HomeState extends State<HomeScreen> {
         backgroundColor: Colors.white,
         centerTitle: true,
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.power_settings_new), onPressed: null)
+          IconButton(
+              icon: Icon(Icons.power_settings_new),
+              onPressed: () async {
+                await FirebaseAuth.instance.signOut();
+                MyAppState.currentUser = null;
+                pushAndRemoveUntil(context, AuthScreen(), false);
+              })
         ],
       ),
       body: Column(
