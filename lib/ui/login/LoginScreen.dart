@@ -173,7 +173,6 @@ class _LoginScreen extends State<LoginScreen> {
       User user;
       if (documentSnapshot != null && documentSnapshot.exists) {
         user = User.fromJson(documentSnapshot.data);
-        await _fireStoreUtils.updateCurrentUser(user, context);
         hideProgress();
         MyAppState.currentUser = user;
       }

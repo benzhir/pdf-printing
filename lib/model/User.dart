@@ -9,7 +9,7 @@ class User {
   String firstName = '';
   String lastName = '';
   String phoneNumber = '';
-  bool isAdmin = false;
+  bool isAdmin;
   Timestamp lastOnlineTimestamp = Timestamp.now();
   String userID;
   String profilePictureURL = '';
