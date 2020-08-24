@@ -3,7 +3,6 @@ import 'package:diagnostic_app/ui/utils/helper.dart';
 
 import '../../constants.dart' as Constants;
 import '../login/LoginScreen.dart';
-import '../signUp/SignUpScreen.dart';
 
 class AuthScreen extends StatelessWidget {
   @override
